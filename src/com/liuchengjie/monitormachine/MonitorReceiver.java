@@ -15,7 +15,8 @@ public class MonitorReceiver extends BroadcastReceiver{
 		Toast.makeText(context, "Intent Detected.", Toast.LENGTH_LONG).show();
 		Log.v("Cat", "Have listened Broadcast");
 		Log.v("Cat", intent.getAction());
-		Intent serviceIntent = new Intent(context, MonitorService.class);
+		Intent serviceIntent = intent;
+		serviceIntent.setClass(context, MonitorService.class);
 		serviceIntent.putExtra("broadcast_signal", intent.getAction());
 		context.startService(serviceIntent);
 	}
