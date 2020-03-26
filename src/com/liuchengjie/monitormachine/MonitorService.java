@@ -21,8 +21,7 @@ import android.widget.Toast;
 
 public class MonitorService extends Service{
 	
-	public final static String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
-	public final static String BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
+
 	
 	@Override
 	public IBinder onBind(Intent intent) {
