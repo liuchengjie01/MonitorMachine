@@ -1,7 +1,5 @@
 package com.liuchengjie.monitormachine;
 
-import java.security.Provider;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
