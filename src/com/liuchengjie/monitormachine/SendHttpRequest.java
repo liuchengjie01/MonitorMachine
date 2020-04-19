@@ -56,6 +56,20 @@ public class SendHttpRequest implements Runnable {
 				} else if(this.hmp.get("operate_kind").equals(1)){
 					
 				}
+			} else if(this.url.contains("/call/add")){
+				json.put("send_phone_number", this.hmp.get("send_phone_number"));
+				json.put("receive_phone_number", this.hmp.get("receive_phone_number"));
+				json.put("operate_kind", this.hmp.get("operate_kind"));
+				json.put("start_call_time", this.hmp.get("start_time"));
+				json.put("end_call_time", this.hmp.get("stop_time"));
+				json.put("audio_file_name", this.hmp.get("audio_file_name"));
+				//这里开始将录音文件名给传到服务端去
+			} else if(this.url.contains("/location/update")) {
+				json.put("altitude", hmp.get("al"));
+				json.put("longitude", hmp.get("lng"));
+				json.put("latitude", hmp.get("lat"));
+				json.put("update_time", hmp.get("update_time"));
+				json.put("location_provider", hmp.get("provider"));
 			}
 			
 //			json.put("send_phone_number", sender);

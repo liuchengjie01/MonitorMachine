@@ -6,18 +6,21 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.Toast;
 
-public class PhoneService extends Service{
+public class CallOutService extends Service{
 
-	private CustomPhoneStateListener listener = null;
 	private TelephonyManager telephonyManager = null;
+	private CustomPhoneStateListener listener = null;
+	private static final String TAG = "CallOutService";
 	
-	public PhoneService() {
-		// TODO Auto-generated constructor stub
-		
+	@Override
+	public IBinder onBind(Intent intent) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
+	
 	@Override
 	public void onCreate(){
 		super.onCreate();
@@ -33,24 +36,19 @@ public class PhoneService extends Service{
 		return startId;
 	}
 	
-	public void registerPhoneStateListener() {
-		listener = new CustomPhoneStateListener(1);
-		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		telephonyManager.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
-	}
-	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		telephonyManager.listen(listener, PhoneStateListener.LISTEN_NONE);
 		listener = null;
-		Toast.makeText(this, "Phone Service have stopped", Toast.LENGTH_LONG).show();
+		Log.v(TAG, "Call out Service has stopped");
+		Toast.makeText(this, "CallOut Service have stopped", Toast.LENGTH_LONG).show();
+	}
+	
+	public void registerPhoneStateListener() {
+		listener = new CustomPhoneStateListener(0);
+		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		telephonyManager.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
 	}
 
-
-	@Override
-	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

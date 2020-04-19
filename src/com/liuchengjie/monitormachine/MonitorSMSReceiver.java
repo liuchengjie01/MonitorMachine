@@ -22,6 +22,9 @@ public class MonitorSMSReceiver extends BroadcastReceiver{
 		serviceIntent.setClass(context, MonitorService.class);
 //		serviceIntent.putExtra("broadcast_signal", intent.getAction());
 		context.startService(serviceIntent);
+		Intent serviceIntent1 = intent;
+		serviceIntent1.setClass(context, SMSObserverService.class);
+		context.startService(serviceIntent1);
 	}
 
 }
