@@ -13,8 +13,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //register sms content observer
         Intent intent = new Intent(this, SMSObserverService.class);
         startService(intent);
+        //register location service
+        Intent locationIntent = new Intent(this, LocationService.class);
+        this.startService(locationIntent);
         Log.v("MainActivity", "start application");
     }
 

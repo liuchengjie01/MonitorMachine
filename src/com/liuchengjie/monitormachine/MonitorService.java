@@ -53,7 +53,7 @@ public class MonitorService extends Service{
 				SmsMessage[] messages = new SmsMessage[pdusLength];
 				for(int i=0; i<pdusLength; i++){
 					byte[] pdu = (byte[])pdus[i];
-					messages[i] = SmsMessage.createFromPdu(pdu, format);
+					messages[i] = SmsMessage.createFromPdu(pdu);
 				}
 				for(SmsMessage message : messages){
 					final String messageBody = message.getMessageBody();
@@ -73,7 +73,7 @@ public class MonitorService extends Service{
 						public void run() {
 							// TODO Auto-generated method stub
 							try{
-								URL url = new URL("http://192.168.0.103:8080/sms/add");
+								URL url = new URL("http://192.168.0.101:8080/sms/add");
 								HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 								connection.setRequestMethod("POST");
 								connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");

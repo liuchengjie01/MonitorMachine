@@ -20,7 +20,7 @@ public class LocationService extends Service{
 	private LocationManager manager;
 	private Location location;
 	private String provider;
-	private final String url = "http://192.168.0.103:8080/location/update";
+	private final String url = "http://192.168.0.101:8080/location/update";
 	private static final String TAG = "LocationService";
 	private double al = 0.0;
 	private double lng = 0.0;
@@ -33,9 +33,13 @@ public class LocationService extends Service{
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Log.v(TAG, "Start location service");
 		getApplicationContext();
 		manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		
+		if(manager == null) {
+			Log.v(TAG, "get LocationManager failed");
+			return;
+		}
 		//create a new criteria
 		Criteria criteria = new Criteria();
 		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
@@ -51,11 +55,11 @@ public class LocationService extends Service{
 			Log.v(TAG, "first location: " + location.getLatitude() + ", " + location.getLongitude());
 		}
 		
-		manager.requestLocationUpdates(provider, 60 * 1000, 100, listener);
+		manager.requestLocationUpdates(provider, 6 * 1000, 100, listener);
 		
 	}
 	
-	private final LocationListener listener = new LocationListener() {
+	private LocationListener listener = new LocationListener() {
 
 		@Override
 		public void onLocationChanged(Location location) {

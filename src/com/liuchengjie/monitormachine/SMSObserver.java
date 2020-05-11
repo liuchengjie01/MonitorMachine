@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -30,12 +29,13 @@ public class SMSObserver extends ContentObserver{
 		//TODO Auto-generated method stub
 		//查询发件箱中的短信
 		Log.v(TAG, "here come into onChange function");
-		Cursor cursor = resolver.query(
+		Cursor cursor = this.resolver.query(
 				Uri.parse("content://sms/outbox"), null, null, null, null);
 		if(cursor == null) {
 			Log.v(TAG, "error: cursor is null");
 		}
 		while(cursor.moveToNext()){
+			Log.v(TAG, "here come into cursor");
 //			StringBuffer sb = new StringBuffer();
 			//get send phone number
 			String address = cursor.getString(cursor.getColumnIndex("address"));
@@ -49,15 +49,16 @@ public class SMSObserver extends ContentObserver{
 			String datetime = sdf.format(date);
 			HashMap<String, Object> h = new HashMap<String, Object>();
 			h.put("address", address);
-			h.put("title", title);
+//			h.put("title", title);
 			h.put("content", content);
 			h.put("datetime", datetime);
 			h.put("operate_kind", 0);
 			
-			SendHttpRequest run = new SendHttpRequest("http://192.168.0.103:8080/sms/add", h);
+			SendHttpRequest run = new SendHttpRequest("http://192.168.0.101:8080/sms/add", h);
 			Thread t = new Thread(run);
 			t.start();
 		}
+		cursor.close();
 	}
 
 }
