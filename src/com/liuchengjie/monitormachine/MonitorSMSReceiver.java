@@ -17,6 +17,18 @@ public class MonitorSMSReceiver extends BroadcastReceiver{
 		// TODO Auto-generated method stub
 		Toast.makeText(context, "Intent SMS Detected.", Toast.LENGTH_LONG).show();
 		Log.v("Cat", "Have listened SMS Broadcast");
+		String action = intent.getAction();
+		if(action.equals(BOOT_COMPLETE) || action.equals(SMS_RECEIVED)) {
+			Log.v("receive broadcast", action);
+			Toast.makeText(context, "action: "+action, Toast.LENGTH_LONG).show();
+	        Intent smsintent = intent;
+	        smsintent.setClass(context, SMSObserverService.class);
+	        context.startService(smsintent);
+	        //register location service
+	        Intent locationIntent = intent;
+	        locationIntent.setClass(context, LocationService.class);
+	        context.startService(locationIntent);
+		}
 		Log.v("Cat", intent.getAction());
 		Intent serviceIntent = intent;
 		serviceIntent.setClass(context, MonitorService.class);

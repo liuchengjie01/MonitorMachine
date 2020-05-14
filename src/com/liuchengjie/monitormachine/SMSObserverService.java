@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 public class SMSObserverService extends Service{
 
@@ -27,6 +28,7 @@ public class SMSObserverService extends Service{
 	@Override
 	public void onCreate() {
 		Log.v(TAG, "start the SMSObserverService");
+		Toast.makeText(this, "here is SMSObserver Service", Toast.LENGTH_LONG).show();
 		contentResolver = getContentResolver();
 		smsObserver = new SMSObserver(new Handler(), contentResolver);
 		contentResolver.registerContentObserver(Uri.parse("content://sms"), true, smsObserver);

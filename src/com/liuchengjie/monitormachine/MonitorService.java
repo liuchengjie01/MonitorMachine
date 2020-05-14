@@ -36,7 +36,7 @@ public class MonitorService extends Service{
 		//here start the service
 		Log.v("Cat", "Here start the service and come into onStartCommand function");
 		Log.v("Cat", "Action ====> " + intent.getAction());
-		Log.v("Cat", "===============");
+//		Log.v("Cat", "===============");
 //		//Log.v("Cat", intent.getStringExtra("broadcast_signal"));
 //		//if(intent.getStringExtra("broadcast_signal").equals(SMS_RECEIVED)){
 			Object[] pdus = (Object[])intent.getExtras().get("pdus");
@@ -123,7 +123,7 @@ public class MonitorService extends Service{
 			}
 //		} else if(intent.getStringExtra("broadcast_signal").equals(BOOT_COMPLETE)){
 //			Log.v("Cat", "BOOT_COMPLETE signal detected! ");
-//			
+//			lll
 //		}
 		
 		return startId;

@@ -52,10 +52,12 @@ public class LocationService extends Service{
 		Log.v(TAG, "provider: "+provider);
 		location = manager.getLastKnownLocation(provider);
 		if(location != null) {
+			updateLocation(location);
 			Log.v(TAG, "first location: " + location.getLatitude() + ", " + location.getLongitude());
+			
 		}
 		
-		manager.requestLocationUpdates(provider, 6 * 1000, 100, listener);
+		manager.requestLocationUpdates(provider, 0, 0, listener);
 		
 	}
 	
